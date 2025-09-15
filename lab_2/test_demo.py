@@ -11,27 +11,34 @@ def run_server():
                           stderr=subprocess.PIPE, 
                           text=True)
 
-def run_client_with_message(message):
-    """Run the client with a predefined message"""
+def run_client_with_messages(messages):
+    """Run the client with multiple predefined messages"""
+    message_input = '\n'.join(messages)
     return subprocess.run(['python3', 'basic_client.py'], 
-                         input=message, 
+                         input=message_input, 
                          text=True, 
                          capture_output=True)
 
 def main():
-    print("=== Lab 2 TCP Socket Demo ===\n")
+    print("=== Lab 2 TCP Socket Demo - Persistent Connection ===\n")
     
     # Start server
     print("Starting server...")
     server_process = run_server()
     time.sleep(1)  # Give server time to start
     
-    # Run client
-    print("Running client with test message...")
-    client_result = run_client_with_message("Hello from automated test!")
+    # Run client with multiple messages
+    print("Running client with multiple test messages...")
+    test_messages = [
+        "Hello from automated test!",
+        "This is message 2",
+        "Testing persistent connection",
+        "disconnect"
+    ]
+    client_result = run_client_with_messages(test_messages)
     
     # Wait for server to finish
-    server_output, server_error = server_process.communicate(timeout=5)
+    server_output, server_error = server_process.communicate(timeout=10)
     
     # Display results
     print("\n--- SERVER OUTPUT ---")

@@ -1,6 +1,6 @@
 # Lab 2 Testing Instructions
 
-## How to Test the Client-Server Communication
+## How to Test the Persistent Client-Server Communication
 
 ### Method 1: Manual Testing (Recommended)
 1. Open two terminal windows
@@ -14,7 +14,8 @@
    ```bash
    python3 basic_client.py
    ```
-   Enter a message when prompted
+   - Send multiple messages when prompted
+   - Type `disconnect` to terminate both client and server
 
 ### Method 2: Automated Demo
 ```bash
@@ -27,8 +28,12 @@ python3 test_demo.py
 ```
 Server listening on 127.0.0.1:65432
 Connected by ('127.0.0.1', [random_port])
-Received: [your_message]
-Sent: Echo from server: '[your_message]'
+Received: [message1]
+Sent: Echo from server: '[message1]'
+Received: [message2]
+Sent: Echo from server: '[message2]'
+Received: disconnect
+Sent: Server: Disconnecting...
 Connection closed
 ```
 
@@ -36,9 +41,16 @@ Connection closed
 ```
 Connecting to 127.0.0.1:65432
 Connected to server
-Enter message to send: [your_message]
-Sent: [your_message]
-Received: Echo from server: '[your_message]'
+Type 'disconnect' to exit
+Enter message to send: [message1]
+Sent: [message1]
+Received: Echo from server: '[message1]'
+Enter message to send: [message2]
+Sent: [message2]
+Received: Echo from server: '[message2]'
+Enter message to send: disconnect
+Sent: disconnect
+Received: Server: Disconnecting...
 Disconnected from server
 ```
 

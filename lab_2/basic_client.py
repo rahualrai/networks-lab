@@ -8,14 +8,19 @@ try:
         print(f"Connecting to {HOST}:{PORT}")
         client_socket.connect((HOST, PORT))
         print("Connected to server")
+        print("Type 'disconnect' to exit")
         
-        message = input("Enter message to send: ")
-        client_socket.sendall(message.encode('utf-8'))
-        print(f"Sent: {message}")
-        
-        data = client_socket.recv(1024)
-        response = data.decode('utf-8')
-        print(f"Received: {response}")
+        while True:
+            message = input("Enter message to send: ")
+            client_socket.sendall(message.encode('utf-8'))
+            print(f"Sent: {message}")
+            
+            data = client_socket.recv(1024)
+            response = data.decode('utf-8')
+            print(f"Received: {response}")
+            
+            if message.lower() == 'disconnect':
+                break
         
         print("Disconnected from server")
 

@@ -13,10 +13,19 @@ try:
         with conn:
             print(f"Connected by {addr}")
             
-            data = conn.recv(1024)
-            if data:
+            while True:
+                data = conn.recv(1024)
+                if not data:
+                    break
+                    
                 message = data.decode('utf-8')
                 print(f"Received: {message}")
+                
+                if message.lower() == 'disconnect':
+                    response = "Server: Disconnecting..."
+                    conn.sendall(response.encode('utf-8'))
+                    print(f"Sent: {response}")
+                    break
                 
                 response = f"Echo from server: '{message}'"
                 conn.sendall(response.encode('utf-8'))
